@@ -1,0 +1,24 @@
+#features-modal{
+    justify-content:end;
+    padding: 1.3rem;
+}
+
+#c-modal-features{
+    max-width: 22vw;
+    height: 100%;
+    overflow-y: auto;
+    border-radius: var(--radius) 0px 0px var(--radius);
+}
+
+.c-actions--stack{
+    display: flex;
+    flex-direction: column;
+    padding: var(--padding);
+}
+
+.c-actions--stack button{
+    height: 3rem;
+    background-color: var(--bg-color);
+    color: rgb(97, 97, 97);
+    border: 1px solid black;
+}

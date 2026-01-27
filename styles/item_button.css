@@ -1,0 +1,21 @@
+.c-item-button {
+    border: none;
+    border-radius: 10px;
+    color: white;
+    width: 11vw; 
+    height: 10vh; 
+    text-align: center;
+    font-size: clamp(0.8rem, 2.5vw, 1.35rem);
+    padding: 0 5px 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    word-wrap: break-word;
+}
+
+.c-item-button:hover {
+    background-color: #04aa6d58 !important;
+    color: black;
+}

@@ -1,0 +1,25 @@
+#item-create-modal{
+    justify-content:end;
+    padding: 1.3rem;
+}
+
+#c-modal-item-create{
+    max-width: 22vw;
+    height: 100%;
+    overflow-y: auto;
+    border-radius: var(--radius) 0px 0px var(--radius);
+}
+.c-qty-unit{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.c-qty-unit input { flex: 2 1 0; } /* Input takes ~67% width, unit selector takes ~33% */
+.c-qty-unit select { flex: 1 1 0; }
+
+#js-add-new-item{ background-color: var(--success-color);}
+#js-reset-new-item{ background-color:#ddd}

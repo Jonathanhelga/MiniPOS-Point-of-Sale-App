@@ -1,0 +1,158 @@
+:root {
+    /* Brand & Functional Colors */
+    --clr-border: #d1d5db;
+    
+    /* Global Spacing & Shapes */
+    --radius: 12px;
+    --wizard-pad: 2rem;
+    --wizard-bg-app: antiquewhite;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--wizard-bg-app);
+    color: #333;
+}
+
+#setup-wizard {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(110, 163, 195, 0.976);
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+}
+
+#setup-wizard.is-hidden { display: none; }
+
+/* 1. Hide the content initially */
+.is-loading-auth .c-setup__content {
+    display: none !important;
+}
+
+/* 2. The Spinner/Loader style */
+.c-auth-loader {
+    display: none; /* Hidden by default, shown when loading */
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* When the parent has the loading class, show the spinner */
+.is-loading-auth .c-auth-loader {
+    display: block;
+}
+
+.app-title {
+    font-family: 'Courier New', monospace;
+    color: #00ffea;
+    font-size: clamp(3rem, 8vw, 5rem);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.c-wizard__card {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+.c-wizard__header {
+    background: #7db9de;
+    color: white;
+    padding: var(--wizard-pad);
+    text-align: center;
+}
+.c-wizard__step-indicator {
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+.c-wizard__step-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.c-wizard__body{
+    padding: var(--wizard-pad);
+}
+.c-wizard__step{ display: none; animation: fadeIn 0.3s ease; }
+
+.c-wizard__step.is-active{ display: block; }
+
+.c-separator{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: #888;
+}
+.c-separator::before, .c-separator::after{ content: ''; flex: 1; border-bottom: 1.2px solid #000000; } 
+.c-separator__text{ padding: 0 10px; font-size: 0.9rem; }
+
+.c-field__hint{
+    font-size: 0.8em;
+    color: #7f8c8d;
+    margin-top: 4px;
+}
+
+.btn--google{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: white;
+    border: 1px solid #ccc;
+    color: #333;
+    width: 100%; /* Ensures it matches other buttons */
+}
+#js-email-verify{
+    display: none;
+    width: 100%;
+    background: #0091ff;
+    color: #cfcfcf;
+}
+#js-signup-submit{
+    display: none;
+    width: 100%;
+    background: #0091ff;
+    color: #cfcfcf;
+}
+#js-email-verify:disabled{ background: #ccc; color: #666; cursor: not-allowed; }
+#js-email-verify.is-active{ display: block; }
+
+#js-signup-submit:disabled{ background: #ccc; color: #666; cursor: not-allowed; }
+#js-signup-submit.is-active{ display: block; }
+
+.c-auth-footer{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+.c-auth-footer a{ font-weight: bold; }
+.c-wizard__footer{
+    padding: 20px 30px;
+    background: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+}
+#js-setup-prev { background: #e0e0e0; color: #333; }
+#js-setup-next { background: #2c3e50;  color: white; }
+
+#js-setup-prev:disabled { background: #ccc; color: #666; cursor: not-allowed;  }
+#js-setup-next:disabled { background: #ccc; color: #666; cursor: not-allowed; ; }

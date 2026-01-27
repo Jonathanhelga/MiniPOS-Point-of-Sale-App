@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+  <!-- ============= Setup Wizard ============= -->
+    <div id="setup-wizard" class="setup-wizard">
+        <h1 class="app-title">Mini PoOoS</h1>
+        <form id="setup-form" class="c-wizard__card">
+            <header class="c-wizard__header">
+                <div class="c-wizard__step-indicator">
+                Step <span id="setup-step-current">1</span> of 4
+                </div>
+                <h2 class="c-wizard__step-title" id="js-setup-step-title">Sign Up as a new user</h2>
+            </header>
+            <div class="c-wizard__body">
+                <section class="c-wizard__step is-active is-loading-auth" id="setup-step-1">
+                      <div class="c-auth-loader">
+                          <div class="spinner"></div> <p>Checking verification...</p>
+                      </div>
+
+                      <div class="c-setup__content"> </div>
+                </section>
+                
+                <section class="c-wizard__step" id="setup-step-2">
+                    <div class="c-field">
+                        <label class="c-field__label" for="business-name">Business Name</label>
+                        <input class="c-field__input" type="text" id="business-name" placeholder="e.g. Electric Shop" required />
+                        <div class="c-field__hint">This appears at the top of every bill.</div>
+                    </div>
+
+                    <div class="c-field">
+                        <label class="c-field__label" for="business-address">Address</label>
+                        <textarea class="c-field__textarea" rows="3" id="business-address" placeholder="Street, City, Zip Code"></textarea>
+                        <div class="c-field__hint">Keep it under 3 lines for thermal paper.</div>
+                    </div>
+
+                    <div class="c-field">
+                        <label class="c-field__label" for="business-phone">Phone / Contact</label>
+                        <input class="c-field__input" type="tel" id="business-phone" placeholder="(09) 704192445" required />
+                    </div>
+
+                    <div class="c-field">
+                        <label class="c-field__label" for="business-instagram">Instagram</label>
+                        <input class="c-field__input" type="text" id="business-instagram" placeholder="@Hello_there" />
+                    </div>
+
+                    <div class="c-field">
+                        <label class="c-field__label" for="business-email">Email</label>
+                        <input class="c-field__input" type="email" id="business-email" placeholder="hello_there@gmail.com" />
+                    </div>
+                </section>
+
+                    <!-- STEP 3 -->
+                <section class="c-wizard__step" id="setup-step-3">
+                    <div class="c-field">
+                        <label class="c-field__label" for="tax-rate">Tax Rate (%)</label>
+                        <input class="c-field__input" type="number" id="tax-rate" placeholder="0" min="0" max="100" />
+                        <div class="c-field__hint">Leave 0 if you don't collect tax.</div>
+                    </div>
+
+                    <div class="c-field">
+                        <label class="c-field__label" for="invoice-prefix">Invoice Prefix</label>
+                        <input class="c-field__input" type="text" id="invoice-prefix" placeholder="INV-" />
+                    </div>
+                </section>
+
+                    <!-- STEP 4 -->
+                <section class="c-wizard__step" id="setup-step-4">
+                    <div class="c-field">
+                        <label class="c-field__label" for="paper-size">Printer Paper Size</label>
+                        <select class="c-field__select" id="paper-size">
+                          <option value="58">58mm (Small Thermal)</option>
+                          <option value="80" selected>80mm (Standard Thermal)</option>
+                        </select>
+                        <div class="c-field__hint">Critical: This changes your bill layout.</div>
+                    </div>
+
+                    <div class="c-field">
+                        <label class="c-field__label" for="receipt-footer-message">Footer Message</label>
+                        <textarea class="c-field__textarea" id="receipt-footer-message" rows="2">Thank You for Your Purchase!</textarea>
+                        <div class="c-field__hint">This appears at the footer of every bill.</div>
+                    </div>
+                </section>
+                
+            </div>
+            <footer class="c-wizard__footer">
+                <button class="btn" id="js-setup-prev" type="button"> Back </button>
+                <button class="btn" id="js-setup-next" type="button"> Next Step </button>
+            </footer>
+        </form>
+    </div>
+  <!-- ============= Templates ============= -->
+  <template id="logged-in-wizard-template">
+      <div class="c-setup__welcome-back" style="text-align: center; padding: 2rem;">
+          <h3>Helloo There!</h3>
+          <p>You are currently logged in as:</p>
+          <p><strong><span class="js-user-email-display"></span></strong></p>
+          <br>
+          <p style="font-size: 0.9em; color: gray;">You can proceed to the next step.</p>
+          <button class="js-logout-btn btn" style="margin-top:1rem;">Not you? Log Out</button>
+      </div>
+  </template>
+  <template id="guest-wizard-template">
+      <div class="c-field">
+          <label class="c-field__label" for="username">.ᐣUsername</label>
+          <input class="c-field__input" type="text" id="js-username" placeholder="e.g. Lion King" required />
+      </div>
+
+      <div class="c-field">
+          <label class="c-field__label" for="email">✉︎E-mail</label>
+          <input class="c-field__input" type="email" id="js-email" placeholder="e.g. LionKing@yahoo.com" required />
+      </div>
+
+      <div class="c-field">
+          <label class="c-field__label" for="password">🫣Password</label>
+          <input class="c-field__input" type="password" id="js-password" name="password" minlength="8" placeholder="••••••••" required />
+      </div>
+
+      <div class="c-field">
+          <label class="c-field__label" for="verification-code">📲Verification Code</label>
+          <input class="c-field__input" type="number" id="js-verification-code" placeholder="Check your email box" />
+      </div>
+
+      <div class="c-actions">
+          <button class="btn is-active" id="js-email-verify" type="button" disabled> E-Mail Verification </button>
+          <button class="btn" id="js-signup-submit" type="button" disabled> Sign Up </button>
+      </div>
+
+      <div class="c-separator" role="separator" aria-label="or">
+          <span class="c-separator__text">OR</span>
+      </div>
+
+      <div class="c-social">
+          <button class="btn btn--google" type="button" id="js-google-signin">
+          <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"></path>
+              <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.715H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"></path>
+              <path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"></path>
+              <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.159 6.656 3.58 9 3.58z" fill="#EA4335"></path>
+          </svg>
+          <span>You can use your Google Account</span>
+          </button>
+      </div>
+      <footer class="c-auth-footer">
+        <p>Already have an account? <a href="login.html">Log In</a></p>
+      </footer>
+  </template>
+  <template id="item-button-template">
+    <button class="c-item-button" id="js-item-button">
+      <span class="c-item-button__label"></span>
+    </button>
+  </template>
+   <!-- ============= Modals ============= -->
+    <div id="item-create-modal" class="c-modal is-hidden">
+      <div class="c-modal__panel" id="c-modal-item-create">
+        <header class="c-modal__header">
+          <h2 class="c-modal__title">Add New Item</h2>
+          <button type="button" class="c-modal__close" aria-label="Close" data-modal-close="item-create-modal">&times;</button>
+        </header>
+        <div class="c-modal__body">
+          <form class="c-modal__form" id="js-item-create-modal">
+              <div class="c-field">
+                <label class="c-field__label" for="tag-color">Tag Color</label>
+                <select id="tag-color" class="c-field__select">
+                  <option value="green">Green</option>
+                  <option value="orange">Orange</option>
+                  <option value="red">Red</option>
+                  <option value="blue">Blue</option>
+                </select>
+              </div>
+              <div class="c-field">
+                <label class="c-field__label" for="sku">SKU</label>
+                <input class="c-field__input" type="text" id="sku" placeholder="SKU" />
+              </div>
+              <div class="c-field">
+                <label class="c-field__label" for="item-name">Item Name</label>
+                <input class="c-field__input" type="text" id="item-name" placeholder="Item Name" />
+              </div>
+              <div class="c-field">
+                <label class="c-field__label" for="tag-category">Category</label>
+                <select id="tag-category" class="c-field__select">
+                  <option value="Lighting">Lighting</option>
+                  <option value="Cables &amp; Cords">Cables &amp; Cords</option>
+                  <option value="Electrical Wire">Electrical Wire</option>
+                  <option value="Outlets &amp; Switches">Outlets &amp; Switches</option>
+                  <option value="Smart Home">Smart Home</option>
+                </select>
+              </div>
+              <div class="c-field">
+                <label class="c-field__label" for="cost-price">Cost Price (IDR)</label>
+                <input class="c-field__input" type="text" id="cost-price" placeholder="Cost Price (IDR)" />
+              </div>
+              <div class="c-field">
+                <label class="c-field__label" for="sell-price">Selling Price (IDR)</label>
+                <input class="c-field__input" type="text" id="sell-price" placeholder="Selling Price (IDR)" />
+              </div>
+              <div class="c-field">
+                <label class="c-field__label" for="min-stock-level">Minimum Stock Level</label>
+                <input class="c-field__input" type="number" id="min-stock-level" placeholder="Minimum Stock Level" step="0.01" min="0" />
+              </div>
+              <div class="c-field">
+                <label class="c-field__label">Item Quantity &amp; Unit</label>
+                <div class="c-qty-unit">
+                  <input class="c-field__input" type="number" id="item-qty" placeholder="Item Quantity" />
+                  <select class="c-field__select" id="item-unit">
+                    <option value="pcs">Pieces</option>
+                    <option value="m">Meters</option>
+                    <option value="kg">Kilograms</option>
+                    <option value="l">Liters</option>
+                    <option value="ft">Feet</option>
+                    <option value="cm">Centimeters</option>
+                    <option value="g">Grams</option>
+                    <option value="ml">Milliliters</option>
+                    <option value="box">Boxes</option>
+                    <option value="pack">Packs</option>
+                  </select>
+                </div>
+              </div>
+              <div class="c-field">
+                <label class="c-field__label" for="supplier-info">Supplier Info</label>
+                <input class="c-field__input" type="text" id="supplier-info" maxlength="255" placeholder="e.g., PT. FreshGoods Supplier" />
+              </div>
+              <div class="c-field">
+                <label class="c-field__label" for="description">Description</label>
+                <textarea class="c-field__textarea" id="js-description" name="description" rows="5" placeholder="Write your description here..."></textarea>
+              </div>
+              <footer class="c-modal__footer">
+                <div class="c-actions">
+                  <button type="submit" class="btn" id="js-add-new-item" >Add Item</button>
+                  <button type="button" class="btn" id="js-reset-new-item" data-modal-close="item-create-modal">Reset</button>
+                </div>
+              </footer>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="features-modal" class="c-modal is-hidden">
+      <div class="c-modal__panel" id="c-modal-features">
+        <header class="c-modal__header">
+          <h2 class="c-modal__title">Features</h2>
+          <button type="button" class="c-modal__close" aria-label="Close" data-modal-close="features-modal">&times;</button>
+        </header>
+        <div class="c-modal_body">
+          <div class="c-actions c-actions--stack">
+            <button id="inventory-update-open" class="btn" type="button">Update Inventory</button>
+            <button id="barcode-open" class="btn" type="button">Generate Barcode</button>
+            <!-- <button id="item-info-open" class="btn" type="button" disabled>Item Information</button> -->
+            <!-- <button id="keystats-open" class="btn" type="button" disabled>Key Stats</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <main id="pos-app" class="l-app">
+    <!-- Sidebar (Ordered Items) -->
+    <aside class="l-sidebar">
+      <section class="l-sidebar__top">
+        <h2>Ordered Items:</h2>
+
+        <table class="c-table">
+          <thead>
+            <tr>
+              <th>Item Name</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+
+          <tbody id="order-items">
+            <tr class="c-table__empty">
+              <td colspan="3">No items ordered yet</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div id="order-edit-hint" class="c-hint">
+          Double-click any row to edit quantity
+        </div>
+      </section>
+
+      <section class="l-sidebar__summary">
+        <table class="c-table">
+          <thead>
+            <tr>
+              <th>Total Items</th>
+              <th>Price Total</th>
+            </tr>
+          </thead>
+          <tbody id="order-summary">
+            <tr>
+              <td><span id="order-total-items"></span></td>
+              <td><span id="order-total-price"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="l-sidebar__actions">
+        <div class="c-actions">
+          <button type="button" class="btn l-sidebar-btn" id="js-order-reset">Reset</button>
+          <button type="button" class="btn l-sidebar-btn" id="js-order-remove" disabled>Remove Item</button>
+          <button type="button" class="btn l-sidebar-btn" id="js-order-print">Print Bill</button>
+        </div>
+
+        <div class="c-actions">
+          <button type="button" class="btn l-sidebar-btn" id="js-order-history-open">Order History</button>
+        </div>
+
+        <div class="c-clock">
+          <div id="clock-date"></div>
+          <div id="clock-time"></div>
+        </div>
+      </section>
+    </aside>
+
+    <!-- Main (Search + Items) -->
+    <section class="l-main">
+      <header class="l-main__toolbar">
+
+
+        <div class="c-search">
+          <p class="l-main__title"><strong>Search items:</strong></p>
+          <input type="search" id="js-item-search" class="item-search" name="item-search" placeholder="🔍 Search products, SKU, or category..." />
+          <div class="search-stats">
+            <p>Showing <span id="js-search-stats">0</span> items</p>
+          </div>
+        </div>
+
+        <div class="c-actions">
+          <div class="c-actions__features">
+            <button id="js-item-create-open" class="btn btn--primary" type="button">Add New Item</button>
+            <button id="js-features-open" class="btn btn--secondary" type="button">Other Features</button>
+          </div>
+        </div>
+
+      </header>
+
+      <div id="item-grid">
+          <button class="c-item-button" id="js-item-button">
+            <span class="c-item-button__label">Hello</span>
+          </button>
+      </div>
+      <div id="item-grid-empty"></div>
+    </section>
+  </main>
+</body>
+<script type="module" src="/src/main.js"></script>
+</html>

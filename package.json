@@ -1,0 +1,28 @@
+{
+  "name": "buildmorestepbystep",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "client": "vite",
+    "server": "node server/server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "firebase": "^12.8.0",
+    "nodemailer": "^7.0.12",
+    "otp-generator": "^4.0.1",
+    "vite": "^6.4.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
