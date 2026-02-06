@@ -4,15 +4,13 @@ let emailFinal = '';
 let passFinal = '';
 let usernameFinal = '';
 export function renderLoggedInState(user) {
-    const step1Container = document.getElementById('setup-step-1'); 
-    const template = document.getElementById('logged-in-wizard-template');
-
-    const clone = template.content.cloneNode(true);
-
+    const container = document.getElementById('js-wizard__body');
+    const loggedInTemplate = document.getElementById('logged-in-wizard-template');
+    const clone = loggedInTemplate.content.cloneNode(true);
+    
     const emailDisplay = clone.querySelector('.js-user-email-display');
     if(emailDisplay) { emailDisplay.textContent = user.email; }
-
-    // We must do this BEFORE adding it to the DOM for cleaner logic
+    
     const logoutBtn = clone.querySelector('.js-logout-btn');
     if(logoutBtn) {
         logoutBtn.addEventListener('click', async () => {
@@ -20,17 +18,15 @@ export function renderLoggedInState(user) {
             window.location.reload();
         });
     }
-
-    // 4. Clear the current view and append the new clone
-    step1Container.innerHTML = ''; 
-    step1Container.appendChild(clone);
+    container.innerHTML = ''; 
+    container.appendChild(clone);
 }
 export function renderGuestState(){
-    const step1Container = document.getElementById('setup-step-1'); 
-    const template = document.getElementById('guest-wizard-template');
-    const clone = template.content.cloneNode(true);
-    step1Container.innerHTML = ''; 
-    step1Container.appendChild(clone);
+    const container = document.getElementById('js-wizard__body');
+    const GuestTemplate = document.getElementById('guest-wizard-template');
+    const clone = GuestTemplate.content.cloneNode(true);
+    container.innerHTML = ''; 
+    container.appendChild(clone);
 }
 
 function checkVerificationButton() {
@@ -97,7 +93,7 @@ function ifButtonIsClicked(){
     })
     buttonSignUp.addEventListener('click', async function(event){
         const verificationInput = document.getElementById('js-verification-code').value.trim();
-        if(verificationInput == generatedOtp){ 
+        if(Number(verificationInput) == generatedOtp){ 
             console.log("OTP Match! Proceeding..."); 
             const userCredential = await SignUpNewUser(emailFinal, passFinal, usernameFinal);
             console.log("User Created:", userCredential);
@@ -114,9 +110,8 @@ export function handleNewUser(){
     inputs.forEach(id => {
         document.getElementById(id).addEventListener('input', checkVerificationButton);
     });
-    checkVerificationButton();
     document.getElementById('js-verification-code').addEventListener('input', checkSignInButton);
-
+    checkVerificationButton();
     ifButtonIsClicked();
 }
 

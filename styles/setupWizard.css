@@ -20,7 +20,7 @@ body {
     color: #333;
 }
 
-#setup-wizard {
+#setup-wizard, #log-in-wizard {
     display: flex;
     flex-direction: column;
     background-color: rgba(110, 163, 195, 0.976);
@@ -30,6 +30,7 @@ body {
     width: 100%;
     margin: 0;
 }
+
 
 #setup-wizard.is-hidden { display: none; }
 
@@ -75,12 +76,16 @@ body {
     text-align: center;
 }
 .c-wizard__step-indicator {
+    display: block;
     font-size: 0.85em;
     text-transform: uppercase;
     letter-spacing: 1px;
     opacity: 0.8;
     margin-bottom: 5px;
 }
+.c-wizard__step-indicator.is-hidden { display: none; }
+
+#js-wizard__footer.is-hidden{ display: none; }
 .c-wizard__step-title {
     font-size: 1.75rem;
     font-weight: 700;
@@ -116,7 +121,7 @@ body {
     justify-content: center;
     gap: 10px;
     background: white;
-    border: 1px solid #ccc;
+    border: 1px solid #757575;
     color: #333;
     width: 100%; /* Ensures it matches other buttons */
 }
@@ -132,11 +137,23 @@ body {
     background: #0091ff;
     color: #cfcfcf;
 }
+
+#js-login-submit{
+    display: none;
+    width: 100%;
+    background: #0091ff;
+    color: #cfcfcf;
+}
+
 #js-email-verify:disabled{ background: #ccc; color: #666; cursor: not-allowed; }
 #js-email-verify.is-active{ display: block; }
 
+
 #js-signup-submit:disabled{ background: #ccc; color: #666; cursor: not-allowed; }
 #js-signup-submit.is-active{ display: block; }
+
+#js-login-submit:disabled{ background: #ccc; color: #666; cursor: not-allowed; }
+#js-login-submit.is-active{ display: block; }
 
 .c-auth-footer{
     text-align: center;
@@ -151,8 +168,47 @@ body {
     display: flex;
     justify-content: space-between;
 }
+#js-wizard__footer.is-hidden{
+    display: none;
+}
 #js-setup-prev { background: #e0e0e0; color: #333; }
 #js-setup-next { background: #2c3e50;  color: white; }
 
 #js-setup-prev:disabled { background: #ccc; color: #666; cursor: not-allowed;  }
 #js-setup-next:disabled { background: #ccc; color: #666; cursor: not-allowed; ; }
+
+#login-password{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.c-link--small {
+    font-size: 0.8em;
+    text-decoration: none;
+    color: inherit;
+}
+
+.u-float-right {
+    float: right;
+}
+/* Login Header Styling */
+.c-wizard__login-header {
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.c-wizard__login-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.c-wizard__login-header p {
+    display: block;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}

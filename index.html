@@ -10,91 +10,29 @@
   <!-- ============= Setup Wizard ============= -->
     <div id="setup-wizard" class="setup-wizard">
         <h1 class="app-title">Mini PoOoS</h1>
-        <form id="setup-form" class="c-wizard__card">
+        <div id="setup-wizard-card" class="c-wizard__card">
             <header class="c-wizard__header">
-                <div class="c-wizard__step-indicator">
-                Step <span id="setup-step-current">1</span> of 4
-                </div>
-                <h2 class="c-wizard__step-title" id="js-setup-step-title">Sign Up as a new user</h2>
+              <div class="c-wizard__step-indicator" id="js-wizard-step-indicator">Step <span id="setup-step-current">1</span> of 4</div>
+              <div class="c-wizard__login-header" id="js-wizard-login-header" style="display: none;">
+                <p>Welcome Back!:)</p>
+                <h2>Sign In to your account</h2>
+              </div>
+              <h2 class="c-wizard__step-title" id="js-setup-step-title">Sign Up as a new user</h2>
             </header>
-            <div class="c-wizard__body">
-                <section class="c-wizard__step is-active is-loading-auth" id="setup-step-1">
-                      <div class="c-auth-loader">
-                          <div class="spinner"></div> <p>Checking verification...</p>
-                      </div>
-
-                      <div class="c-setup__content"> </div>
-                </section>
-                
-                <section class="c-wizard__step" id="setup-step-2">
-                    <div class="c-field">
-                        <label class="c-field__label" for="business-name">Business Name</label>
-                        <input class="c-field__input" type="text" id="business-name" placeholder="e.g. Electric Shop" required />
-                        <div class="c-field__hint">This appears at the top of every bill.</div>
-                    </div>
-
-                    <div class="c-field">
-                        <label class="c-field__label" for="business-address">Address</label>
-                        <textarea class="c-field__textarea" rows="3" id="business-address" placeholder="Street, City, Zip Code"></textarea>
-                        <div class="c-field__hint">Keep it under 3 lines for thermal paper.</div>
-                    </div>
-
-                    <div class="c-field">
-                        <label class="c-field__label" for="business-phone">Phone / Contact</label>
-                        <input class="c-field__input" type="tel" id="business-phone" placeholder="(09) 704192445" required />
-                    </div>
-
-                    <div class="c-field">
-                        <label class="c-field__label" for="business-instagram">Instagram</label>
-                        <input class="c-field__input" type="text" id="business-instagram" placeholder="@Hello_there" />
-                    </div>
-
-                    <div class="c-field">
-                        <label class="c-field__label" for="business-email">Email</label>
-                        <input class="c-field__input" type="email" id="business-email" placeholder="hello_there@gmail.com" />
-                    </div>
-                </section>
-
-                    <!-- STEP 3 -->
-                <section class="c-wizard__step" id="setup-step-3">
-                    <div class="c-field">
-                        <label class="c-field__label" for="tax-rate">Tax Rate (%)</label>
-                        <input class="c-field__input" type="number" id="tax-rate" placeholder="0" min="0" max="100" />
-                        <div class="c-field__hint">Leave 0 if you don't collect tax.</div>
-                    </div>
-
-                    <div class="c-field">
-                        <label class="c-field__label" for="invoice-prefix">Invoice Prefix</label>
-                        <input class="c-field__input" type="text" id="invoice-prefix" placeholder="INV-" />
-                    </div>
-                </section>
-
-                    <!-- STEP 4 -->
-                <section class="c-wizard__step" id="setup-step-4">
-                    <div class="c-field">
-                        <label class="c-field__label" for="paper-size">Printer Paper Size</label>
-                        <select class="c-field__select" id="paper-size">
-                          <option value="58">58mm (Small Thermal)</option>
-                          <option value="80" selected>80mm (Standard Thermal)</option>
-                        </select>
-                        <div class="c-field__hint">Critical: This changes your bill layout.</div>
-                    </div>
-
-                    <div class="c-field">
-                        <label class="c-field__label" for="receipt-footer-message">Footer Message</label>
-                        <textarea class="c-field__textarea" id="receipt-footer-message" rows="2">Thank You for Your Purchase!</textarea>
-                        <div class="c-field__hint">This appears at the footer of every bill.</div>
-                    </div>
-                </section>
-                
+            <div class="c-wizard__body" id="js-wizard__body">
+              <!-- <template id="logged-in-wizard-template"></template> -->
+              <!-- <template id="login-wizard-template"> -->
+              <!-- <template id="guest-wizard-template"> -->
             </div>
-            <footer class="c-wizard__footer">
-                <button class="btn" id="js-setup-prev" type="button"> Back </button>
-                <button class="btn" id="js-setup-next" type="button"> Next Step </button>
+            <footer class="c-wizard__footer" id="js-wizard__footer">
+              <button class="btn" id="js-setup-prev" type="button"> Back </button>
+              <button class="btn" id="js-setup-next" type="button"> Next Step </button>
             </footer>
-        </form>
+        </div>
     </div>
+     
   <!-- ============= Templates ============= -->
+
   <template id="logged-in-wizard-template">
       <div class="c-setup__welcome-back" style="text-align: center; padding: 2rem;">
           <h3>Helloo There!</h3>
@@ -106,49 +44,166 @@
       </div>
   </template>
   <template id="guest-wizard-template">
+        <section class="c-wizard__step is-active" id="setup-step-1">
+            <form id="signUp-form">
+              <div class="c-field">
+                  <label class="c-field__label" for="username">.ᐣUsername</label>
+                  <input class="c-field__input" type="text" id="js-username" placeholder="e.g. Lion King" required />
+              </div>
+
+              <div class="c-field">
+                  <label class="c-field__label" for="email">✉︎E-mail</label>
+                  <input class="c-field__input" type="email" id="js-email" placeholder="e.g. LionKing@yahoo.com" required />
+              </div>
+
+              <div class="c-field">
+                  <label class="c-field__label" for="password">🫣Password</label>
+                  <input class="c-field__input" type="password" id="js-password" name="password" minlength="8" placeholder="••••••••" required />
+              </div>
+
+              <div class="c-field">
+                  <label class="c-field__label" for="verification-code">📲Verification Code</label>
+                  <input class="c-field__input" type="number" id="js-verification-code" placeholder="Check your email box" />
+              </div>
+
+              <div class="c-actions">
+                  <button class="btn is-active" id="js-email-verify" type="button" disabled> E-Mail Verification </button>
+                  <button class="btn" id="js-signup-submit" type="button" disabled> Sign Up </button>
+              </div>
+
+              <div class="c-separator" role="separator" aria-label="or">
+                  <span class="c-separator__text">OR</span>
+              </div>
+
+              <div class="c-social">
+                  <button class="btn btn--google" type="button" id="js-google-signin">
+                  <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"></path>
+                      <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.715H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"></path>
+                      <path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"></path>
+                      <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.159 6.656 3.58 9 3.58z" fill="#EA4335"></path>
+                  </svg>
+                  <span>You can use your Google Account</span>
+                  </button>
+              </div>
+              <footer class="c-auth-footer">
+                <p>Already have an account? <a href="#" id="js-to-logIn">Log In</a></p>
+              </footer>
+            </form>
+        </section>
+                      
+        <section class="c-wizard__step" id="setup-step-2">
+            <div class="c-field">
+                <label class="c-field__label" for="business-name">Business Name</label>
+                <input class="c-field__input" type="text" id="business-name" placeholder="e.g. Electric Shop" required />
+                <div class="c-field__hint">This appears at the top of every bill.</div>
+            </div>
+
+            <div class="c-field">
+                <label class="c-field__label" for="business-address">Address</label>
+                <textarea class="c-field__textarea" rows="3" id="business-address" placeholder="Street, City, Zip Code"></textarea>
+                <div class="c-field__hint">Keep it under 3 lines for thermal paper.</div>
+            </div>
+
+            <div class="c-field">
+                <label class="c-field__label" for="business-phone">Phone / Contact</label>
+                <input class="c-field__input" type="tel" id="business-phone" placeholder="(09) 704192445" required />
+            </div>
+
+            <div class="c-field">
+                <label class="c-field__label" for="business-instagram">Instagram</label>
+                <input class="c-field__input" type="text" id="business-instagram" placeholder="@Hello_there" />
+            </div>
+
+            <div class="c-field">
+                <label class="c-field__label" for="business-email">Email</label>
+                <input class="c-field__input" type="email" id="business-email" placeholder="hello_there@gmail.com" />
+            </div>
+        </section>
+
+        <section class="c-wizard__step" id="setup-step-3">
+            <div class="c-field">
+                <label class="c-field__label" for="tax-rate">Tax Rate (%)</label>
+                <input class="c-field__input" type="number" id="tax-rate" placeholder="0" min="0" max="100" />
+                <div class="c-field__hint">Leave 0 if you don't collect tax.</div>
+            </div>
+
+            <div class="c-field">
+                <label class="c-field__label" for="invoice-prefix">Invoice Prefix</label>
+                <input class="c-field__input" type="text" id="invoice-prefix" placeholder="INV-" />
+            </div>
+        </section>
+
+        <section class="c-wizard__step" id="setup-step-4">
+            <div class="c-field">
+                <label class="c-field__label" for="paper-size">Printer Paper Size</label>
+                <select class="c-field__select" id="paper-size">
+                  <option value="58">58mm (Small Thermal)</option>
+                  <option value="80" selected>80mm (Standard Thermal)</option>
+                </select>
+                <div class="c-field__hint">Critical: This changes your bill layout.</div>
+            </div>
+
+            <div class="c-field">
+                <label class="c-field__label" for="receipt-footer-message">Footer Message</label>
+                <textarea class="c-field__textarea" id="receipt-footer-message" rows="2">Thank You for Your Purchase!</textarea>
+                <div class="c-field__hint">This appears at the footer of every bill.</div>
+            </div>
+        </section>
+  </template>
+  <template id="login-wizard-template">
+    <form id="login-form">
       <div class="c-field">
-          <label class="c-field__label" for="username">.ᐣUsername</label>
-          <input class="c-field__input" type="text" id="js-username" placeholder="e.g. Lion King" required />
+          <label class="c-field__label" for="js-login-identifier">✉︎ Email</label>
+          <input 
+              class="c-field__input" 
+              type="email" 
+              id="js-login-identifier" 
+              placeholder="e.g. LionKing@yahoo.com" 
+              autocomplete="username"
+              required 
+          />
       </div>
 
       <div class="c-field">
-          <label class="c-field__label" for="email">✉︎E-mail</label>
-          <input class="c-field__input" type="email" id="js-email" placeholder="e.g. LionKing@yahoo.com" required />
-      </div>
-
-      <div class="c-field">
-          <label class="c-field__label" for="password">🫣Password</label>
-          <input class="c-field__input" type="password" id="js-password" name="password" minlength="8" placeholder="••••••••" required />
-      </div>
-
-      <div class="c-field">
-          <label class="c-field__label" for="verification-code">📲Verification Code</label>
-          <input class="c-field__input" type="number" id="js-verification-code" placeholder="Check your email box" />
+          <label class="c-field__label" for="js-login-password" id="login-password">
+              <span>🫣 Password</span>
+              <a href="#" class="c-link--small u-float-right">Forgot?</a>
+          </label>
+          <input 
+              class="c-field__input" 
+              type="password" 
+              id="js-login-password" 
+              name="password" 
+              placeholder="••••••••" 
+              autocomplete="current-password"
+              required 
+          />
       </div>
 
       <div class="c-actions">
-          <button class="btn is-active" id="js-email-verify" type="button" disabled> E-Mail Verification </button>
-          <button class="btn" id="js-signup-submit" type="button" disabled> Sign Up </button>
+          <button class="btn is-active" id="js-login-submit" type="button" disabled>Log In</button>
       </div>
-
       <div class="c-separator" role="separator" aria-label="or">
           <span class="c-separator__text">OR</span>
       </div>
 
       <div class="c-social">
-          <button class="btn btn--google" type="button" id="js-google-signin">
-          <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"></path>
-              <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.715H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"></path>
-              <path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"></path>
-              <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.159 6.656 3.58 9 3.58z" fill="#EA4335"></path>
-          </svg>
-          <span>You can use your Google Account</span>
+          <button class="btn btn--google" type="button" id="js-google-login">
+              <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"></path>
+                  <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.715H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"></path>
+                  <path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"></path>
+                  <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.159 6.656 3.58 9 3.58z" fill="#EA4335"></path>
+              </svg>
+              <span>Log In with Google</span>
           </button>
       </div>
+
       <footer class="c-auth-footer">
-        <p>Already have an account? <a href="login.html">Log In</a></p>
+          <p>New to Mini PoOoS? <a href="#" id="js-to-signUp">Create an Account</a></p>
       </footer>
+    </form>
   </template>
   <template id="item-button-template">
     <button class="c-item-button" id="js-item-button">
@@ -255,8 +310,7 @@
         </div>
       </div>
     </div>
-    <main id="pos-app" class="l-app">
-    <!-- Sidebar (Ordered Items) -->
+  <main id="pos-app" class="l-app">
     <aside class="l-sidebar">
       <section class="l-sidebar__top">
         <h2>Ordered Items:</h2>

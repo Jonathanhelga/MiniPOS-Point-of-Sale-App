@@ -1,0 +1,21 @@
+1. monitorAuthState user has already logged in or not yet
+2. if not then 
+    renderGuestState -> handleNewUser(it listens to user input to control the button animation)
+    when user already inputted 3 columns of input, the "send verification" button will be active 
+    when user already press that button, the button will be changed to sign up, when user filled the 
+    verification number then the "sign up" button will be active. 
+    function it uses : 
+    - checkVerificationButton()
+    - checkSignInButton()
+    - ifButtonIsClicked()
+    - handleNewUser();
+    template it uses :
+    - 'guest-wizard-template'
+    - 'step-1-signUp-template'
+
+
+3. if yes then renderLoggedInState
+    function it uses:
+    - renderLoggedInState();
+    template it uses: 
+    - 'logged-in-wizard-template'
