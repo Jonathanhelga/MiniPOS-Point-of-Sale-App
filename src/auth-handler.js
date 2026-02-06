@@ -1,33 +1,7 @@
-import { SignUpNewUser, LogOutUser } from "./firebase";
-
+import { loginUser, registerUser } from "./firebase";
 let emailFinal = '';
 let passFinal = '';
 let usernameFinal = '';
-export function renderLoggedInState(user) {
-    const container = document.getElementById('js-wizard__body');
-    const loggedInTemplate = document.getElementById('logged-in-wizard-template');
-    const clone = loggedInTemplate.content.cloneNode(true);
-    
-    const emailDisplay = clone.querySelector('.js-user-email-display');
-    if(emailDisplay) { emailDisplay.textContent = user.email; }
-    
-    const logoutBtn = clone.querySelector('.js-logout-btn');
-    if(logoutBtn) {
-        logoutBtn.addEventListener('click', async () => {
-            await LogOutUser(); 
-            window.location.reload();
-        });
-    }
-    container.innerHTML = ''; 
-    container.appendChild(clone);
-}
-export function renderGuestState(){
-    const container = document.getElementById('js-wizard__body');
-    const GuestTemplate = document.getElementById('guest-wizard-template');
-    const clone = GuestTemplate.content.cloneNode(true);
-    container.innerHTML = ''; 
-    container.appendChild(clone);
-}
 
 function checkVerificationButton() {
     const username = document.getElementById('js-username').value.trim();
@@ -58,7 +32,7 @@ function ifButtonIsClicked(){
     let generatedOtp = null;
     buttonVerification.addEventListener('click', async function (event){
         buttonVerification.disabled = true;
-        buttonVerification.textContent = "sending verification...PLS check your Email";
+        buttonVerification.textContent = "Sending Verification Check Your Email";
         emailFinal =  document.getElementById('js-email').value.trim();
         passFinal = document.getElementById('js-password').value.trim();
         usernameFinal = document.getElementById('js-username').value.trim();
@@ -91,43 +65,69 @@ function ifButtonIsClicked(){
             buttonVerification.classList.add('is-active');
         }
     })
-    buttonSignUp.addEventListener('click', async function(event){
+    buttonSignUp.addEventListener('click', async function(){
         const verificationInput = document.getElementById('js-verification-code').value.trim();
         if(Number(verificationInput) == generatedOtp){ 
             console.log("OTP Match! Proceeding..."); 
-            const userCredential = await SignUpNewUser(emailFinal, passFinal, usernameFinal);
-            console.log("User Created:", userCredential);
-            buttonSignUp.disabled = true;
-            buttonSignUp.textContent = "Account Successfully Created.";
+            try {
+                buttonSignUp.disabled = true;
+                buttonSignUp.textContent = "Creating Account...";
+                const userCredential = await registerUser(emailFinal, passFinal, usernameFinal);
+                console.log("User Created:", userCredential);
+            } catch (error) {
+                alert(error.message);
+                buttonSignUp.disabled = false;
+            }
         } else { 
             console.log("Wrong OTP.");
             alert("Incorrect Code");
         }
+        buttonSignUp.textContent = "Account Successfully Created.";
     })
 }
-export function handleNewUser(){
+export function initSignUpLogic(){
+    checkVerificationButton();
+    ifButtonIsClicked();
     const inputs = ['js-username', 'js-email', 'js-password'];
     inputs.forEach(id => {
         document.getElementById(id).addEventListener('input', checkVerificationButton);
     });
     document.getElementById('js-verification-code').addEventListener('input', checkSignInButton);
-    checkVerificationButton();
-    ifButtonIsClicked();
 }
 
-export async function addUsername(user, username){
-    try{
-        await setDoc(doc(db, "users", user.uid), {
-            username: username,
-            tax_rate: 0,
-            invoice_prefix: "INV-",
-            printer_size: 80,
-            created_at: new Date().toISOString(),
-            ownerId: user.uid
-        }, { merge: true });
+export function initUserLogin() {
+    const loginButton = document.getElementById('js-login-submit');
+    const emailInput = document.getElementById('js-login-identifier');
+    const passwordInput = document.getElementById('js-login-password');
+    
+    if (!loginButton || !emailInput || !passwordInput) return;
 
-        console.log("Firestore Profile Created for UID:", user.uid);
-    }catch(error){
-        console.error("Database Write Failed:", error.message);
-    }
+    const validate = () => {
+        const hasValues = emailInput.value.trim() && passwordInput.value.trim();
+        loginButton.disabled = !hasValues;
+    };
+
+    emailInput.addEventListener('input', validate);
+    passwordInput.addEventListener('input', validate);
+    validate(); 
+
+    loginButton.addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        const originalText = loginButton.textContent;
+        loginButton.textContent = "Verifying...";
+        loginButton.disabled = true;
+
+        try {
+            await loginUser(email, password);
+        } catch (error) {
+            console.error("Sign in failed:", error);
+            alert(error?.message || 'Sign in failed');
+            loginButton.disabled = false;
+            loginButton.textContent = originalText;
+        }
+    });
 }

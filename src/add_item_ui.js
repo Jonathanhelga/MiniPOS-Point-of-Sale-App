@@ -3,5 +3,5 @@ export function pressAddItemButton(){
         OpenCloseModal('item-create-modal');
         console.log("open item create button is clicked");
     })
-
+    
 }

@@ -1,3 +1,5 @@
+import { initUserLogin, initSignUpLogic } from "./auth-handler";
+
 function controlSignUpWizardPageDirection(){
     const buttonPrev = document.getElementById('js-setup-prev');
     const buttonNext = document.getElementById('js-setup-next');
@@ -32,7 +34,7 @@ function controlSignUpWizard(){
     document.getElementById('js-setup-step-title').style.display = 'block';
 }
 
-function switchView(targetView){
+export function switchView(targetView){
     const container = document.getElementById('js-wizard__body');
     const footer = document.getElementById('js-wizard__footer');
     let template = null;
@@ -40,11 +42,14 @@ function switchView(targetView){
         template = document.getElementById('login-wizard-template');
         footer.classList.add('is-hidden')
         controlLogInWizard();
+        // initUserLogin();
     }
     else if(targetView === 'signUp'){
         template = document.getElementById('guest-wizard-template');
-        footer.classList.remove('is-hidden')
+        footer.classList.remove('is-hidden');
         controlSignUpWizard();
+        controlSignUpWizardPageDirection();
+        // initSignUpLogic();
     }
     if (!template) {
         console.warn('switchView: no template found for', targetView);
@@ -53,6 +58,8 @@ function switchView(targetView){
     const clone = template.content.cloneNode(true);
     container.innerHTML = '';
     container.appendChild(clone);
+    if(targetView === 'logIn'){ initUserLogin(); }
+    else if(targetView === 'signUp'){ initSignUpLogic();    }
 }
 
 export function eventDelegation(containerID){
@@ -63,21 +70,11 @@ export function eventDelegation(containerID){
             e.preventDefault();
             console.log("Switching to Sign Up...");
             switchView('signUp');
-            // updateHeader('signUp', 1);
         }
         else if (e.target && e.target.id === 'js-to-logIn') {
             e.preventDefault();
-            console.log("Switching to Sign Up...");
+            console.log("Switching to Log In...");
             switchView('logIn');
-            // updateHeader('logIn', 1);
         }
     })
 }
-
-
-//login/signup page flow
-/**
- 1. Show user the sign up form
- 2. if user press the href to login, then change the sign up form to log in form
-
- */

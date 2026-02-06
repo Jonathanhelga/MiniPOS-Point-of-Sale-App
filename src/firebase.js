@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 
-import { getFirestore } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut} from "firebase/auth";
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "minipos-d9d92.firebaseapp.com",
@@ -13,20 +13,31 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
+export const auth = getAuth(app);
 
-const auth = getAuth(app);
-export {db}
-
-export async function SignUpNewUser(email, password, username){
-  try {
-    localStorage.setItem('pendingUsername', username);
+export async function registerUser(email, password, username) {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    return userCredential.user;
-  } catch (error) {
-    alert("Sign Up Error: " + error.message); 
-    throw e; 
-  }
+    const user = userCredential.user;
+    
+    await setDoc(doc(db, "users", user.uid), {
+        username: username,
+        tax_rate: 0,
+        invoice_prefix: "INV-",
+        printer_size: 80,
+        created_at: new Date().toISOString(),
+        ownerId: user.uid
+    });
+    return user;
+}
+
+export async function loginUser(email, password) {
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+        console.error("humm I believe the user haven't made any account yet.");
+        return;
+    }
 }
 
 export async function LogOutUser(){
@@ -37,11 +48,4 @@ export async function LogOutUser(){
         alert("Sign Out Error: " + e.message); 
         throw e; 
     }
-}
-
-export function monitorAuthState(onLogin, onLogout){
-    onAuthStateChanged(auth, (user) => {
-        if(user){ onLogin(user); }
-        else{ onLogout(); }
-    })
 }

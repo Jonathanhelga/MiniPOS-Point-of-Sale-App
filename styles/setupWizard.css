@@ -85,7 +85,8 @@ body {
 }
 .c-wizard__step-indicator.is-hidden { display: none; }
 
-#js-wizard__footer.is-hidden{ display: none; }
+.c-wizard__footer.is-hidden{ display: none; }
+
 .c-wizard__step-title {
     font-size: 1.75rem;
     font-weight: 700;
