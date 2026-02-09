@@ -15,7 +15,9 @@ document.addEventListener('DOMContentLoaded', function(){
     eventDelegation('js-wizard__body');
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            renderLoggedInState(user);
+            console.log("user has already logged in");
+            
+            // renderLoggedInState(user);
         } else {
             switchView('signUp');
         }

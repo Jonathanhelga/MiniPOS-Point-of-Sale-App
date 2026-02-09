@@ -1,4 +1,4 @@
-import { loginUser, registerUser } from "./firebase";
+import { loginUser, registerUser, submitSettingsData } from "./firebase";
 let emailFinal = '';
 let passFinal = '';
 let usernameFinal = '';
@@ -93,6 +93,42 @@ export function initSignUpLogic(){
         document.getElementById(id).addEventListener('input', checkVerificationButton);
     });
     document.getElementById('js-verification-code').addEventListener('input', checkSignInButton);
+
+    const submitSettingButton = document.getElementById('js-submit-setting');
+    if(submitSettingButton){
+        submitSettingButton.addEventListener('click', submitSettingForm);
+    }
+}
+
+async function submitSettingForm(){
+    const submitSettingButton = document.getElementById('js-submit-setting');
+
+    const formData = {
+        username: document.getElementById('js-username').value,
+        businessName: document.getElementById('business-name').value,
+        businessAddress: document.getElementById('business-address').value,
+        businessPhone: document.getElementById('business-phone').value,
+        businessInst: document.getElementById('business-instagram').value,
+        businessEmail: document.getElementById('business-email').value,
+        tax_rate: document.getElementById('tax-rate').value,
+        invoice_prefix: document.getElementById('invoice-prefix').value,
+        paper_size: document.getElementById('paper-size').value,
+        receipt_footer: document.getElementById('receipt-footer-message').value,
+    }
+    const originalText = submitSettingButton.textContent;
+    submitSettingButton.textContent = "saving...";
+    submitSettingButton.disabled = true;
+
+    try {
+        await submitSettingsData(formData);
+        submitSettingButton.textContent = "Submit Successfully";
+        
+    } catch (error) {
+        console.error("Submitting failed:", error);
+        alert(error?.message || 'Submitting failed');
+        submitSettingButton.disabled = false;
+        submitSettingButton.textContent = originalText;
+    }
 }
 
 export function initUserLogin() {

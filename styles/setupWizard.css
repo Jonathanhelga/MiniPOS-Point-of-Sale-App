@@ -85,8 +85,6 @@ body {
 }
 .c-wizard__step-indicator.is-hidden { display: none; }
 
-.c-wizard__footer.is-hidden{ display: none; }
-
 .c-wizard__step-title {
     font-size: 1.75rem;
     font-weight: 700;
@@ -162,18 +160,27 @@ body {
     font-size: 0.9rem;
 }
 .c-auth-footer a{ font-weight: bold; }
-.c-wizard__footer{
+
+.c-wizard__footer {
     padding: 20px 30px;
     background: #f8f9fa;
     border-top: 1px solid #e0e0e0;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; 
+    gap: 10px; 
 }
-#js-wizard__footer.is-hidden{
-    display: none;
-}
-#js-setup-prev { background: #e0e0e0; color: #333; }
-#js-setup-next { background: #2c3e50;  color: white; }
+
+.c-wizard__footer.is-hidden{ display: none; }
+
+#js-setup-prev {  background: #e0e0e0; color: #333;  margin-right: auto; }
+#js-setup-next {  background: #2c3e50;  color: white;  }
+
+
+#js-submit-setting {  display: none; }
+#js-submit-setting.is-active{ display: block; }
+
+#js-setup-next.is-inactive{ display: none; }
+#js-setup-prev.is-inactive{ display: none; }
 
 #js-setup-prev:disabled { background: #ccc; color: #666; cursor: not-allowed;  }
 #js-setup-next:disabled { background: #ccc; color: #666; cursor: not-allowed; ; }
@@ -199,12 +206,6 @@ body {
     padding: 0.5rem 0;
 }
 
-.c-wizard__login-header h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin: 0;
-}
-
 .c-wizard__login-header p {
     display: block;
     font-size: 0.85em;
@@ -212,4 +213,10 @@ body {
     letter-spacing: 1px;
     opacity: 0.8;
     margin-bottom: 5px;
+}
+
+.c-wizard__login-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
 }

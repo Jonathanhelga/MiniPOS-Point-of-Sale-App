@@ -3,23 +3,55 @@ import { initUserLogin, initSignUpLogic } from "./auth-handler";
 function controlSignUpWizardPageDirection(){
     const buttonPrev = document.getElementById('js-setup-prev');
     const buttonNext = document.getElementById('js-setup-next');
-    let currentStep = 1;
+    const submitButton = document.getElementById('js-submit-setting');
+    const stepCounter = document.getElementById('setup-step-current');
+    const titleEl = document.getElementById('js-setup-step-title');
     const totalSteps = 4;
 
+    const titles = ["Sign Up as a new user", "Store Identity", "Financial Settings", "Printer Setup"];
+    let currentStep = 1;
+
+
+    const stepEls = [];
+    for (let i = 1; i <= totalSteps; i++) stepEls[i] = document.getElementById(`setup-step-${i}`);
+
+    const updateUI = () => {
+        for (let i = 1; i <= totalSteps; i++) {
+            const el = stepEls[i];
+            if (!el) continue;
+            el.classList.toggle('is-active', i === currentStep);
+        }
+
+        if (stepCounter) stepCounter.innerText = currentStep;
+        if (titleEl) titleEl.innerText = titles[currentStep - 1] || '';
+
+        if (buttonPrev) buttonPrev.style.display = (currentStep > 1) ? '' : 'none';
+
+        if (buttonNext) buttonNext.innerText = (currentStep === totalSteps) ? 'Finish Setup' : 'Next Step';
+
+        if (submitButton && buttonNext) {
+            if (currentStep === totalSteps) {
+                submitButton.classList.add('is-active');
+                buttonNext.classList.add('is-inactive');
+            } 
+            else {
+                submitButton.classList.remove('is-active');
+                buttonNext.classList.remove('is-inactive');
+            }
+        }
+    };
+
     const changeStep = (direction) => {
-        if(currentStep <= 1 && direction < 0) return; // Prevent going before step 1
-        if(currentStep >= totalSteps && direction > 0) return; // Prevent going beyond step 4
-        document.getElementById(`setup-step-${currentStep}`).classList.remove('is-active');
-        currentStep += direction;
-        document.getElementById(`setup-step-${currentStep}`).classList.add('is-active');
-        document.getElementById('setup-step-current').innerText = currentStep;
-        const titles = ["Sign Up as a new user", "Store Identity", "Financial Settings", "Printer Setup"];
-        document.getElementById('js-setup-step-title').innerText = titles[currentStep - 1];
-        document.getElementById('js-setup-prev').style.visibility = (currentStep > 1) ? 'visible' : 'hidden';
-        document.getElementById('js-setup-next').innerText = (currentStep === totalSteps) ? 'Finish Setup' : 'Next Step';
-    }
-    buttonPrev.addEventListener('click', () => changeStep(-1));
-    buttonNext.addEventListener('click', () => changeStep(1));  
+        const target = currentStep + direction;
+        if (target < 1 || target > totalSteps) return;
+        currentStep = target;
+        updateUI();
+    };
+
+    if (buttonPrev) buttonPrev.addEventListener('click', () => changeStep(-1));
+    if (buttonNext) buttonNext.addEventListener('click', () => changeStep(1));
+
+    updateUI();
 }
 
 function controlLogInWizard(){
@@ -40,16 +72,11 @@ export function switchView(targetView){
     let template = null;
     if(targetView === 'logIn'){
         template = document.getElementById('login-wizard-template');
-        footer.classList.add('is-hidden')
-        controlLogInWizard();
-        // initUserLogin();
+        footer.classList.add('is-hidden');
     }
     else if(targetView === 'signUp'){
         template = document.getElementById('guest-wizard-template');
         footer.classList.remove('is-hidden');
-        controlSignUpWizard();
-        controlSignUpWizardPageDirection();
-        // initSignUpLogic();
     }
     if (!template) {
         console.warn('switchView: no template found for', targetView);
@@ -58,8 +85,16 @@ export function switchView(targetView){
     const clone = template.content.cloneNode(true);
     container.innerHTML = '';
     container.appendChild(clone);
-    if(targetView === 'logIn'){ initUserLogin(); }
-    else if(targetView === 'signUp'){ initSignUpLogic();    }
+
+    if(targetView === 'logIn'){
+        controlLogInWizard();
+        initUserLogin();
+    }
+    else if(targetView === 'signUp'){
+        controlSignUpWizard();
+        controlSignUpWizardPageDirection();
+        initSignUpLogic();
+    }
 }
 
 export function eventDelegation(containerID){

@@ -19,16 +19,26 @@ export const auth = getAuth(app);
 export async function registerUser(email, password, username) {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    
+    return user;
+}
+export async function submitSettingsData(formData){
+    const user = auth.currentUser;
+    if (!user) throw new Error("No user logged in!");
     await setDoc(doc(db, "users", user.uid), {
-        username: username,
-        tax_rate: 0,
-        invoice_prefix: "INV-",
-        printer_size: 80,
+        username: formData.username,
+        business_name: formData.businessName,
+        business_address: formData.businessAddress,
+        business_phone: formData.businessPhone ,
+        business_instagram: formData.businessInst,
+        business_email: formData.businessEmail,
+        tax_rate: formData.tax_rate,
+        invoice_prefix: formData.invoice_prefix,
+        printer_size: formData.paper_size,
+        receipt_footer: formData.receipt_footer,
         created_at: new Date().toISOString(),
         ownerId: user.uid
     });
-    return user;
+
 }
 
 export async function loginUser(email, password) {
