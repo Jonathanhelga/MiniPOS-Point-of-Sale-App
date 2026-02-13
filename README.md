@@ -2,7 +2,7 @@
 
 **Started:** August 15, 2025
 
-I built this project for my parents, who are planning to open an electric shop. They needed a simple but reliable POS (Point of Sale) system to manage inventory, track stock, and handle customer orders.
+I built this project for my resume project, I make a simple but reliable POS (Point of Sale) system to manage inventory, track stock, and handle customer orders.
 
 Beyond solving a real business need, this project has been an invaluable learning experience for improving my full-stack development skills and gaining a deeper understanding of JavaScript's multi-function capabilities.
 
