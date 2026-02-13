@@ -12,7 +12,9 @@
         <h1 class="app-title">Mini PoOoS</h1>
         <div id="setup-wizard-card" class="c-wizard__card">
             <header class="c-wizard__header">
-              <div class="c-wizard__step-indicator" id="js-wizard-step-indicator">Step <span id="setup-step-current">1</span> of 4</div>
+              <div class="c-wizard__step-indicator" id="js-wizard-step-indicator">
+                Step <span id="setup-step-current">1</span> of 4
+              </div>
               <h2 class="c-wizard__step-title" id="js-setup-step-title">Sign Up as a new user</h2>
               
               <div class="c-wizard__login-header" id="js-wizard-login-header" style="display: none;">
@@ -29,7 +31,7 @@
             <footer class="c-wizard__footer" id="js-wizard__footer">
               <button class="btn" id="js-setup-prev" type="button"> Back </button>
               <button class="btn" id="js-setup-next" type="button"> Next Step </button>
-              <button class="btn is" id="js-submit-setting" type="button">Submit Setting</button>
+              <button class="btn is" id="js-submit-setting" type="button">Submit Settings</button>
             </footer>
         </div>
     </div>
@@ -213,22 +215,24 @@
       <span class="c-item-button__label"></span>
     </button>
   </template>
+
    <!-- ============= Modals ============= -->
-    <div id="item-create-modal" class="c-modal is-hidden">
+  <div id="item-create-modal" class="c-modal is-hidden">
       <div class="c-modal__panel" id="c-modal-item-create">
         <header class="c-modal__header">
           <h2 class="c-modal__title">Add New Item</h2>
           <button type="button" class="c-modal__close" aria-label="Close" data-modal-close="item-create-modal">&times;</button>
         </header>
         <div class="c-modal__body">
-          <form class="c-modal__form" id="js-item-create-modal">
+          <form class="c-modal__form" id="js-item-create-form">
               <div class="c-field">
-                <label class="c-field__label" for="tag-color">Tag Color</label>
+                <label class="c-field__label" for="tag-color">Button Theme</label>
                 <select id="tag-color" class="c-field__select">
-                  <option value="green">Green</option>
-                  <option value="orange">Orange</option>
-                  <option value="red">Red</option>
-                  <option value="blue">Blue</option>
+                  <option value="primary">Muted Cobalt (Primary)</option>
+                  <option value="success">Sage Green (Success)</option>
+                  <option value="neutral">Soft Slate (Neutral)</option>
+                  <option value="priority">Dusty Rose (Priority)</option>
+                  <option value="legibility">Deep Charcoal (Dark)</option>
                 </select>
               </div>
               <div class="c-field">
@@ -239,7 +243,7 @@
                 <label class="c-field__label" for="item-name">Item Name</label>
                 <input class="c-field__input" type="text" id="item-name" placeholder="Item Name" />
               </div>
-              <div class="c-field">
+              <!-- <div class="c-field">
                 <label class="c-field__label" for="tag-category">Category</label>
                 <select id="tag-category" class="c-field__select">
                   <option value="Lighting">Lighting</option>
@@ -248,7 +252,7 @@
                   <option value="Outlets &amp; Switches">Outlets &amp; Switches</option>
                   <option value="Smart Home">Smart Home</option>
                 </select>
-              </div>
+              </div> -->
               <div class="c-field">
                 <label class="c-field__label" for="cost-price">Cost Price (IDR)</label>
                 <input class="c-field__input" type="text" id="cost-price" placeholder="Cost Price (IDR)" />
@@ -296,8 +300,8 @@
           </form>
         </div>
       </div>
-    </div>
-    <div id="features-modal" class="c-modal is-hidden">
+  </div>
+  <div id="features-modal" class="c-modal is-hidden">
       <div class="c-modal__panel" id="c-modal-features">
         <header class="c-modal__header">
           <h2 class="c-modal__title">Features</h2>
@@ -312,7 +316,7 @@
           </div>
         </div>
       </div>
-    </div>
+  </div>
   <main id="pos-app" class="l-app">
     <aside class="l-sidebar">
       <section class="l-sidebar__top">

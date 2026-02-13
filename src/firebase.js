@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, addDoc, collection, serverTimestamp  } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 
 const firebaseConfig = {
@@ -57,5 +57,27 @@ export async function LogOutUser(){
     }catch(e){  
         alert("Sign Out Error: " + e.message); 
         throw e; 
+    }
+}
+
+export async function submitItemData(itemData, uid){
+    try {
+        const inventoryRef = collection(db, "inventory");
+        const docRef = await addDoc(inventoryRef, {
+            ...itemData,
+            created_at: new Date().toISOString(),
+            lastUpdated: serverTimestamp(), // Better for sorting than local time
+            updateQuantity: false,
+            ownerId: uid
+        });
+
+        return {
+            id: docRef.id,
+            ...itemData,
+            ownerId: uid 
+        };
+    } catch (error) {
+        console.error("Error adding document: ", error);
+        throw error;
     }
 }

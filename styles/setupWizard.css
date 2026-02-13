@@ -21,7 +21,7 @@ body {
 }
 
 #setup-wizard, #log-in-wizard {
-    display: flex;
+    display: none;
     flex-direction: column;
     background-color: rgba(110, 163, 195, 0.976);
     justify-content: center;
@@ -31,7 +31,7 @@ body {
     margin: 0;
 }
 
-
+#setup-wizard.is-active { display: flex; }
 #setup-wizard.is-hidden { display: none; }
 
 /* 1. Hide the content initially */
@@ -83,7 +83,7 @@ body {
     opacity: 0.8;
     margin-bottom: 5px;
 }
-.c-wizard__step-indicator.is-hidden { display: none; }
+.c-wizard__step-indicator.is-hidden { display: none !important; }
 
 .c-wizard__step-title {
     font-size: 1.75rem;

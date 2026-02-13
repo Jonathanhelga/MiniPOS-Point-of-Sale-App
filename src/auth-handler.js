@@ -55,7 +55,7 @@ function ifButtonIsClicked(){
             }
             else{ 
                 console.log("Server says error:", data.error); 
-                buttonVerification.disabled = false; // Let them try again
+                buttonVerification.disabled = false;
                 buttonVerification.classList.add('is-active');
             }
         } catch (error) {
@@ -66,6 +66,7 @@ function ifButtonIsClicked(){
         }
     })
     buttonSignUp.addEventListener('click', async function(){
+        e.preventDefault();
         const verificationInput = document.getElementById('js-verification-code').value.trim();
         if(Number(verificationInput) == generatedOtp){ 
             console.log("OTP Match! Proceeding..."); 

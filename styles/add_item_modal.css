@@ -1,3 +1,10 @@
+/* Mapping Semantic Keys to the Professional Palette */
+.btn--primary   { background-color: #4E7397; color: white; }
+.btn--success   { background-color: #86A38C; color: white; }
+.btn--neutral   { background-color: #718096; color: white; }
+.btn--priority  { background-color: #C58B8B; color: white; }
+.btn--legibility { background-color: #2D3748; color: white; }
+
 #item-create-modal{
     justify-content:end;
     padding: 1.3rem;

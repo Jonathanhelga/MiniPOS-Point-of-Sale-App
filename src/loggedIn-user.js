@@ -3,7 +3,13 @@ export function renderLoggedInState(user) {
     const container = document.getElementById('js-wizard__body');
     const loggedInTemplate = document.getElementById('logged-in-wizard-template');
     const wizardFooter = document.getElementById('js-wizard__footer');
-
+    
+    const stepTitle = document.getElementById('js-wizard-step-indicator');
+    if (stepTitle) { stepTitle.classList.add('is-hidden');} 
+    else { console.warn('Element js-wizard-step-indicator not found'); }
+    const titleEl = document.getElementById('js-setup-step-title');
+    titleEl.innerText = "Hi New User"
+    
     const clone = loggedInTemplate.content.cloneNode(true);
     wizardFooter.classList.add('is-hidden');
 
@@ -19,4 +25,9 @@ export function renderLoggedInState(user) {
     }
     container.innerHTML = ''; 
     container.appendChild(clone);
+}
+
+
+export function renderLoggedInState2(user) {
+    
 }

@@ -19,14 +19,14 @@
     flex: 1; /* Takes all available free space */
     max-height: 60%;
     overflow-y: auto;
-    background-color: var(--backgroundColorDarkMode);
+    background-color: var(--backgroundColorLightMode);
     padding: 0;
     border-top: var(--pos-border);
     border-left: var(--pos-border);
     border-right: var(--pos-border);
 }
 .l-sidebar__summary{
-    background-color: var(--backgroundColorDarkMode);
+    background-color: var(--backgroundColorLightMode);
     padding: 15px;
     flex-shrink: 0;
     border-left: var(--pos-border);
@@ -41,7 +41,7 @@
     max-height: 30%;
     margin-top: 1rem;
     padding: var(--pos-padding);
-    background-color: var(--backgroundColorDarkMode);
+    background-color: var(--backgroundColorLightMode);
     border: var(--pos-border);
     gap: var(--gap);
 }
@@ -113,7 +113,7 @@
     width: 70%;
     box-sizing: border-box;
     z-index: 10;
-    background-color: var(--backgroundColorDarkMode);
+    background-color: var(--backgroundColorLightMode);
     border: var(--pos-border);
 }
 

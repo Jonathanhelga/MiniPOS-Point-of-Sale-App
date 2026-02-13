@@ -7,18 +7,26 @@ import '../styles/item_button.css';
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { switchView, eventDelegation } from "./control_wizard";
-import { renderLoggedInState } from "./loggedIn-user";
+import { renderLoggedInState2 } from "./loggedIn-user";
 import { modal_handler } from './modal-handler';
-
+import { initInventoryForm } from './add_item_ui';
+import { loadAllItems } from './search_item';
 
 document.addEventListener('DOMContentLoaded', function(){
     eventDelegation('js-wizard__body');
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            console.log("user has already logged in");
-            
-            // renderLoggedInState(user);
+            const wizard = document.getElementById('setup-wizard');
+            const container = document.getElementById('pos-app');
+            container.classList.add('is-active');
+            wizard.classList.add('is-hidden');
+            renderLoggedInState2(user);
+            initInventoryForm();
+            loadAllItems();
         } else {
+            const wizard = document.getElementById('setup-wizard');
+            wizard.classList.add('is-active');
+            setTimeout(()=> {console.log('wait for wizard rendering');}, 300);
             switchView('signUp');
         }
     });

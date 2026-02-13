@@ -1,3 +1,17 @@
+/* Mapping Semantic Keys to the Professional Palette */
+.btn--primary   { background-color: #4E7397; color: white; }
+.btn--success   { background-color: #86A38C; color: white; }
+.btn--neutral   { background-color: #718096; color: white; }
+.btn--priority  { background-color: #C58B8B; color: white; }
+.btn--legibility { background-color: #2D3748; color: white; }
+
+#item-grid{
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: start; 
+    gap: 40px; 
+    padding: 10px;
+}
 .c-item-button {
     border: none;
     border-radius: 10px;
@@ -15,7 +29,4 @@
     word-wrap: break-word;
 }
 
-.c-item-button:hover {
-    background-color: #04aa6d58 !important;
-    color: black;
-}
+.c-item-button:hover { background-color: #5f5e5e58 !important; color: black;}
