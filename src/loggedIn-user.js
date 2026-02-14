@@ -1,4 +1,7 @@
 import { LogOutUser } from "./firebase";
+import { initInventoryForm } from './add_item_ui';
+import { loadAllItems } from './search_item';
+
 export function renderLoggedInState(user) {
     const container = document.getElementById('js-wizard__body');
     const loggedInTemplate = document.getElementById('logged-in-wizard-template');
@@ -29,5 +32,6 @@ export function renderLoggedInState(user) {
 
 
 export function renderLoggedInState2(user) {
-    
+    initInventoryForm();
+    loadAllItems();
 }

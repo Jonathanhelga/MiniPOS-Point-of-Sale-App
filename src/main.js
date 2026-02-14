@@ -9,8 +9,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { switchView, eventDelegation } from "./control_wizard";
 import { renderLoggedInState2 } from "./loggedIn-user";
 import { modal_handler } from './modal-handler';
-import { initInventoryForm } from './add_item_ui';
-import { loadAllItems } from './search_item';
 
 document.addEventListener('DOMContentLoaded', function(){
     eventDelegation('js-wizard__body');
@@ -21,8 +19,6 @@ document.addEventListener('DOMContentLoaded', function(){
             container.classList.add('is-active');
             wizard.classList.add('is-hidden');
             renderLoggedInState2(user);
-            initInventoryForm();
-            loadAllItems();
         } else {
             const wizard = document.getElementById('setup-wizard');
             wizard.classList.add('is-active');

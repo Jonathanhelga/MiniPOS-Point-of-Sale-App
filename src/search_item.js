@@ -1,13 +1,11 @@
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 import { db } from './firebase';
-import { createItemButton } from './item_ui';
+import { renderItemGrid } from './item_ui';
 
 let allItems = [];
 function normalizeText(text){ return String(text || '').toLowerCase().trim(); }
 
 export async function loadAllItems() {
-    const container = document.getElementById('item-grid');
-    if(!container) return;
     try {
         const q = query(collection(db, "inventory"), orderBy("itemName"));
         const querySnapshot = await getDocs(q);
@@ -15,12 +13,11 @@ export async function loadAllItems() {
             id: doc.id,
             ...doc.data()
         }));
-        container.innerHTML = '';
 
         console.log("Total Items Loaded:", allItems.length);
         console.table(allItems); // Displays your data in a clean table format
-        if (allItems.length === 0) { container.innerHTML = '<p>No items in inventory.</p>'; } 
-        else { allItems.forEach(item => createItemButton(container, item)); }
+        
+        renderItemGrid(allItems);
     } 
     catch (error) {  console.error("Error pulling data:", error); }
 }
