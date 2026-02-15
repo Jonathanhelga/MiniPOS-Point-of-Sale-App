@@ -23,6 +23,8 @@ export function createItemButton(container, item){
     container.appendChild(clone);
 }
 
-function handleSearchInput(event){}
+function handleSearchInput(event){
+    
+}
 function updateSearchStats(count, query){}
 function openOrderPanel(item){}
