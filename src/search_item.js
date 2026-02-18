@@ -1,6 +1,7 @@
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+createItemButton
 import { db } from './firebase';
-import { renderItemGrid } from './item_ui';
+import { createItemButton, renderItemGrid } from './item_ui';
 
 let allItems = [];
 let searchTimeout = 0;
@@ -49,7 +50,6 @@ function handleSearchEvent(event){
 export function initializeSearch(){
     const searchInput = document.getElementById('js-item-search');
     searchInput?.addEventListener('input', (event) => handleSearchEvent(event));
-    // searchInput?.addEventListener('keydown', (event) => { })
 }
 
 function updateLocalStock(itemId, quantityChange){

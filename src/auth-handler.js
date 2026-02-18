@@ -9,13 +9,17 @@ function checkVerificationButton() {
     const pass = document.getElementById('js-password').value.trim();
     const buttonVerification = document.getElementById('js-email-verify');
     const buttonSignUp = document.getElementById('js-signup-submit');
-    if(buttonSignUp.classList.contains('is-active')){
-        buttonSignUp.classList.remove('is-active')
-        buttonVerification.classList.add('is-active')
-        buttonVerification.disabled = true;
-        buttonSignUp.disabled = true;
+
+    // if(buttonSignUp.classList.contains('is-active')){
+    //     buttonSignUp.classList.remove('is-active')
+    //     buttonVerification.classList.add('is-active')
+    //     buttonVerification.disabled = true;
+    //     buttonSignUp.disabled = true;
+    // }
+
+    if (username && email && pass){ 
+        buttonVerification.disabled = false; 
     }
-    if (username && email && pass){ buttonVerification.disabled = false; }
     else { buttonVerification.disabled = true; }
 }
 
@@ -29,6 +33,7 @@ function checkSignInButton(){
 function ifButtonIsClicked(){
     const buttonVerification = document.getElementById('js-email-verify');
     const buttonSignUp = document.getElementById('js-signup-submit');
+    const buttonSignUpText = buttonSignUp.textContent;
     let generatedOtp = null;
     buttonVerification.addEventListener('click', async function (event){
         buttonVerification.disabled = true;
@@ -65,7 +70,7 @@ function ifButtonIsClicked(){
             buttonVerification.classList.add('is-active');
         }
     })
-    buttonSignUp.addEventListener('click', async function(){
+    buttonSignUp.addEventListener('click', async function(e){
         e.preventDefault();
         const verificationInput = document.getElementById('js-verification-code').value.trim();
         if(Number(verificationInput) == generatedOtp){ 
@@ -73,17 +78,18 @@ function ifButtonIsClicked(){
             try {
                 buttonSignUp.disabled = true;
                 buttonSignUp.textContent = "Creating Account...";
-                const userCredential = await registerUser(emailFinal, passFinal, usernameFinal);
+                const userCredential = await registerUser(emailFinal, passFinal);
                 console.log("User Created:", userCredential);
+                buttonSignUp.textContent = "Account Successfully Created.";
             } catch (error) {
                 alert(error.message);
+                buttonSignUp.textContent = buttonSignUpText;
                 buttonSignUp.disabled = false;
             }
         } else { 
             console.log("Wrong OTP.");
             alert("Incorrect Code");
         }
-        buttonSignUp.textContent = "Account Successfully Created.";
     })
 }
 export function initSignUpLogic(){
@@ -101,6 +107,12 @@ export function initSignUpLogic(){
     }
 }
 
+function activateContainer(){
+    const wizard = document.getElementById('setup-wizard');
+    const container = document.getElementById('pos-app');
+    container.classList.add('is-active');
+    wizard.classList.add('is-hidden');
+}
 async function submitSettingForm(){
     const submitSettingButton = document.getElementById('js-submit-setting');
 
@@ -116,6 +128,7 @@ async function submitSettingForm(){
         paper_size: document.getElementById('paper-size').value,
         receipt_footer: document.getElementById('receipt-footer-message').value,
     }
+
     const originalText = submitSettingButton.textContent;
     submitSettingButton.textContent = "saving...";
     submitSettingButton.disabled = true;
@@ -123,7 +136,7 @@ async function submitSettingForm(){
     try {
         await submitSettingsData(formData);
         submitSettingButton.textContent = "Submit Successfully";
-        
+        setTimeout(() => {window.location.reload();}, 800);
     } catch (error) {
         console.error("Submitting failed:", error);
         alert(error?.message || 'Submitting failed');
@@ -131,7 +144,6 @@ async function submitSettingForm(){
         submitSettingButton.textContent = originalText;
     }
 }
-
 export function initUserLogin() {
     const loginButton = document.getElementById('js-login-submit');
     const emailInput = document.getElementById('js-login-identifier');

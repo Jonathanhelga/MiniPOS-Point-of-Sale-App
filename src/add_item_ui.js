@@ -17,7 +17,7 @@ export function initInventoryForm() {
         submitBtn.textContent = "Saving Item...";
         const formData = {
             tagColor: document.getElementById('tag-color').value,
-            sku: document.getElementById('sku').value.trim().toUpperCase(), // Standardize SKU
+            sku: document.getElementById('sku').value.trim().toUpperCase(),
             itemName: document.getElementById('item-name').value.trim(),
             // category: document.getElementById('tag-category').value,
             costPrice: Number(document.getElementById('cost-price').value) || 0,

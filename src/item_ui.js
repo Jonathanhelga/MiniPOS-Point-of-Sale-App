@@ -1,14 +1,4 @@
-export function renderItemGrid(items){
-    const container = document.getElementById('item-grid');
-    if(!container) return;
-    container.innerHTML = '';
-
-    if (items.length === 0) { container.innerHTML = '<p>No items in inventory.</p>'; } 
-    else { items.forEach(item => createItemButton(container, item)); }
-}
-
 export function createItemButton(container, item){
-    // let container = document.getElementById('item-grid');
     let template = document.getElementById('item-button-template');
 
     if (!template) return;
@@ -22,6 +12,16 @@ export function createItemButton(container, item){
     else { button.classList.add('btn--neutral'); }
     container.appendChild(clone);
 }
+
+export function renderItemGrid(items){
+    const container = document.getElementById('item-grid');
+    if(!container) return;
+    container.innerHTML = '';
+
+    if (items.length === 0) { container.innerHTML = '<p>No items in inventory.</p>'; } 
+    else { items.forEach(item => createItemButton(container, item)); }
+}
+
 
 function handleSearchInput(event){
     

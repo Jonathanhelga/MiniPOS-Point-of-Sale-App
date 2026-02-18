@@ -8,15 +8,15 @@ const firebaseConfig = {
   projectId: "minipos-d9d92",
   storageBucket: "minipos-d9d92.firebasestorage.app",
   messagingSenderId: "481588556736",
-  appId: "1:481588556736:web:922aa4c42a0b90fb990e25",
-  measurementId: "G-FMXNHNPNEX"
+  appId: "1:481588556736:web:ae014a234e674f16990e25",
+  measurementId: "G-ZVV40CPVKP"
 };
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 
-export async function registerUser(email, password, username) {
+export async function registerUser(email, password) {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     return user;
@@ -45,6 +45,7 @@ export async function loginUser(email, password) {
     try {
         await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
+        alert(error?.message || 'Sign in failed');
         console.error("humm I believe the user haven't made any account yet.");
         return;
     }
