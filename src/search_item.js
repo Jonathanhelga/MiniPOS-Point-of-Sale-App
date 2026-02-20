@@ -1,9 +1,9 @@
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
-createItemButton
 import { db } from './firebase';
 import { createItemButton, renderItemGrid } from './item_ui';
+import { formatRupiah } from './formatRupiah';
 
-let allItems = [];
+export let allItems = [];
 let searchTimeout = 0;
 function normalizeText(text){ return String(text || '').toLowerCase().trim(); }
 
@@ -30,6 +30,7 @@ export function addSingleItem(item){
     createItemButton(container, item);
 }
 
+//=============
 function searchedItems(query){
     if (!query || query.trim() === '') return allItems;
     const searchTerm = normalizeText(query);
@@ -38,6 +39,7 @@ function searchedItems(query){
         return searchFields.some(field => field != null && normalizeText(field).includes(searchTerm));
     });
 }
+
 function handleSearchEvent(event){
     const query = event.target.value;
     clearTimeout(searchTimeout);
@@ -51,10 +53,8 @@ export function initializeSearch(){
     const searchInput = document.getElementById('js-item-search');
     searchInput?.addEventListener('input', (event) => handleSearchEvent(event));
 }
-
-function updateLocalStock(itemId, quantityChange){
-    
-}
+//=============
+function updateLocalStock(itemId, quantityChange){}
 
 function syncStockToFirestore(itemId, newQuantity){}
 

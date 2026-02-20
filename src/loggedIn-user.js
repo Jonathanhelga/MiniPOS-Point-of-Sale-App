@@ -2,8 +2,7 @@ import { db, LogOutUser } from "./firebase";
 import { initInventoryForm } from './add_item_ui';
 import { loadAllItems, initializeSearch } from './search_item';
 import { getDoc, doc } from "firebase/firestore";
-import { submitSettingsData } from "./firebase";
-import { switchView } from "./control_wizard";
+
 // export function renderLoggedInState(user) {
 //     const container = document.getElementById('js-wizard__body');
 //     const loggedInTemplate = document.getElementById('logged-in-wizard-template');
